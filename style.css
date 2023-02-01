@@ -15,7 +15,15 @@ h1, h2 {
   padding: 15px 30px;
   border-radius: 20px;
   background-color: #FF00FF;
+  color: white;
+  opacity: 0.6;
+  cursor:pointer;
 }
+
+#create-poll-button:hover{
+  opacity: 1;
+}
+
 
 #poll-form {
   margin: 50px auto;

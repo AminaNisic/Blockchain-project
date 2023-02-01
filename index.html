@@ -3,17 +3,69 @@
   <head>
     <meta charset="UTF-8">
     <title>Poll Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css">
+     <script src="index.js"></script>
   </head>
+
   <body>
+  <div id='header' class="row d-flex justify-content-center align-items-center h-100">
+    <div class="mb-md-5 mt-md-4 pb-5">
     <h1>Bljonka's super cool secret poll page wow</h1>
     <h2> It has * s̶m̶a̶r̶t̶  genius contracts *<h2>
-    <button id="create-poll-button">Create Poll</button>
-    <div id="poll-form" style="display:none;">
-      <input type="text" id="poll-question" placeholder="Enter poll question here">
+
+    <button id="create-poll-button" onclick="showPoll()">Create Poll</button>
+  </div>
+</div>
+    <div id="poll_div" class="d-none">
+      <div class="container pt-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+              <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card bg-light text-dark" style="border-radius: 1rem;">
+                    <div class="card-body pt-3 text-center">
+                      <div class="mb-md-3 mt-md-4 pb-3">
+                        <h2 class="fw-bold mb-1">Create a poll</h2>
+
+                        <div class="mb-3">
+                          <label for="formGroupExampleInput" class="form-label">Poll name:</label>
+                          <input type="text" class="form-control" id="formGroupExampleInput" placeholder=" <3 P o l l <3">
+                        </div>
+
+                        <div class="input-group mb-3">
+                          <input type="text" class="form-control" placeholder="Add an option" aria-label="Option 1" aria-describedby="button-addon2">
+                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Add</button>
+                        </div>
+
+                        <button class="btn btn-dark btn-outline-secondary btn-lg px-5" type="submit">Create</button>
+                        <button class="btn btn-danger btn-lg px-5" type="submit" onclick="hidePoll()">Quit</button>
+
+                      </div>
+                    </div>
+                </div>
+              </div>
+          </div>
+        </div>
+    </div>
+
+    <script>
+      function showPoll() {
+
+        document.getElementById("create-poll-button").classList.add('d-none');
+        document.getElementById("poll_div").classList.remove('d-none');
+      }
+
+      function hidePoll() {
+
+        document.getElementById("create-poll-button").classList.remove('d-none');
+        document.getElementById("poll_div").classList.add('d-none');
+      }
+    </script>
+    <!--<form id="poll-form">
+      <input type="text" id="poll-question">
       <div id="options-container"></div>
       <button id="add-option-button">Add Option</button>
       <button id="done-button">Done</button>
-    </div>
-  </body>
+    </form>-->
+    </body>
 </html>
