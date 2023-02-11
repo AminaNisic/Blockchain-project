@@ -2,83 +2,64 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Poll Page</title>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
+    <title>To Do List</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
-     <script src="index.js"></script>
-     <style>
-     </style>
-  </head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
+    <style>
 
-  <body>
-  <div id='header' class="row d-flex justify-content-center align-items-center h-100">
-    <div class="mb-md-5 mt-md-4 pb-5">
-    <h1>Bljonka's super cool secret poll page wow</h1>
-    <h2> It has * s̶m̶a̶r̶t̶  genius contracts *<h2>
-      <button onclick="connectMetamask();">Connect Metamask</button>
-      <p id="accountArea"></p>
-    <button id="create-poll-button" onclick="connectContract()">Create Poll</button>
-    <p id="contractArea"></p>
-    <button onclick="readContract()">get poll items</button>
-    <p id="dataArea"></p>
-  </div>
-</div>
-    <div id="poll_div" class="d-none">
-      <div class="container pt-5 h-100">
-          <div class="row d-flex justify-content-center align-items-center h-100">
-              <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                <div class="card bg-light text-dark" style="border-radius: 1rem;">
-                    <div class="card-body pt-3 text-center">
-                      <div class="mb-md-3 mt-md-4 pb-3">
-                        <h2 class="fw-bold mb-1">Create a poll</h2>
-
-
-                        <div class="mb-3">
-                          <label for="formGroupExampleInput" class="form-label">Poll name:</label>
-                          <input type="text" class="form-control" id="formGroupExampleInput" placeholder=" <3 P o l l <3">
-                        </div>
-
-                        <div class="input-group mb-3">
-                          <input type="text" class="form-control" placeholder="Add an option" aria-label="Option 1" aria-describedby="button-addon2">
-                          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Add</button>
-                        </div>
-
-                        <button class="btn btn-dark btn-outline-secondary btn-lg px-5" type="submit">Create</button>
-                        <button class="btn btn-danger btn-lg px-5" type="submit" onclick="hidePoll()">Quit</button>
-
-                      </div>
-                    </div>
-                </div>
-              </div>
-          </div>
-        </div>
-    </div>
-
-    <script>
-
-      let account;
-      const connectMetamask = async () => {
-        if(window.etherium != "undefined") {
-          const accounts = await ethereum.request({ method: "eth_requestAccounts"});
-          account = accounts[0];
-          document.getElementById("accountArea").innerHTML ="current account: " + account;
-        }
-
+      .completed{
+        color:gray;
       }
 
-      const connectContract = async () => {
-            const ABI = [
+    </style>
+  </head>
+  <body>
+      <h1>fUNNY lIst</h1>
+      <p>The website</p>
+      <button onclick="connectMetamask()">Connect to Metamask</button> <br>
+      <p id="accountArea">Connection Status: NOT CONNECTED to Metamask </p>
+
+      <button onclick="connectContract()"> Create a to do list!</button> <br>
+      <p id="contractArea">Connection Status: NOT CONNECTED to Smart Contract</p>
+
+
+
+    <div id="tasks" class="d-none">
+      <input type="text" id="inputArea">
+      <button onclick="add()">Add</button> <br>
+      <div id="box">
+        <ul id="taskListloaded">
+        </ul>
+        <ul id="taskListadded">
+        </ul>
+      </div>
+
+    </div>
+
+
+
+<script type="text/javascript">
+  let account;
+        const connectMetamask = async () => {
+            if(window.ethereum !== "undefined"){
+                const accounts = await ethereum.request({method: "eth_requestAccounts"});
+                account = accounts[0];
+                document.getElementById("accountArea").innerHTML = `Account is: ${account}`;
+            }
+
+        }
+        const connectContract = async () => {
+           const ABI = [
 	{
 		"inputs": [
 			{
 				"internalType": "string",
-				"name": "_data",
+				"name": "_text",
 				"type": "string"
 			}
 		],
-		"name": "pushOption",
+		"name": "create",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -86,24 +67,79 @@
 	{
 		"inputs": [
 			{
-				"internalType": "string",
-				"name": "option",
-				"type": "string"
+				"internalType": "uint256",
+				"name": "_index",
+				"type": "uint256"
 			}
 		],
-		"name": "vote",
+		"name": "toggleCompleted",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
 		"inputs": [],
-		"name": "GetAllStrings",
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_index",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_text",
+				"type": "string"
+			}
+		],
+		"name": "updateText",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_index",
+				"type": "uint256"
+			}
+		],
+		"name": "get",
 		"outputs": [
 			{
-				"internalType": "string[]",
+				"internalType": "string",
+				"name": "text",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "geTaskCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
 				"name": "",
-				"type": "string[]"
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "taskCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -117,12 +153,17 @@
 				"type": "uint256"
 			}
 		],
-		"name": "pollItems",
+		"name": "todos",
 		"outputs": [
 			{
 				"internalType": "string",
-				"name": "",
+				"name": "text",
 				"type": "string"
+			},
+			{
+				"internalType": "bool",
+				"name": "completed",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -134,68 +175,89 @@
 				"internalType": "address",
 				"name": "",
 				"type": "address"
-			}
-		],
-		"name": "voters",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"name": "votesReceived",
-		"outputs": [
+			},
 			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
 			}
 		],
+		"name": "userTasks",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "text",
+				"type": "string"
+			},
+			{
+				"internalType": "bool",
+				"name": "completed",
+				"type": "bool"
+			}
+		],
 		"stateMutability": "view",
 		"type": "function"
 	}
-];
-            const Address = "0xba826260538a7B23341BD192522070a05B21e174";
-            window.web3 = await new Web3(window.ethereum);
-            window.contract = await new window.web3.eth.Contract( ABI, Address);
-            document.getElementById("contractArea").innerHTML = "connected to smart contract";
-            document.getElementById("create-poll-button").classList.add('d-none');
-            document.getElementById("poll_div").classList.remove('d-none');
+]
+           const Address = "0x2413406b7B70Ca9A3C2333DC12De9eE6E0F63f5b";
+           window.web3 = await new Web3(window.ethereum);
+           window.contract = await new window.web3.eth.Contract(ABI, Address);
+           document.getElementById("contractArea").innerHTML = "Connection Status: Success";
+           document.getElementById("tasks").classList.remove('d-none');
+           var taskCount = await window.contract.methods.taskCount().call();
+           //console.log(taskCount);
+
+
+           //var li = document.createElement("li");
+             //var text = document.createTextNode(array[i]);
+            // li.appendChild(text);
+            // document.getElementById("myUl").appendChild(li);
+            //var html="";
+            for (var i = 0; i <= taskCount; i++){
+              //var li = document.createElement("li");
+              let text = document.createTextNode(await window.contract.methods.get(i).call());
+              console.log(taskCount);
+              var li = document.createElement("li");
+              li.appendChild(text);
+              document.getElementById("taskListloaded").appendChild(li);
+              //document.getElementById("taskListloaded").classList.remove('d-none');
+              //let text =
+              //html+=`<li>`+await window.contract.methods.get(i).call());+`</li>`;
+              //li.appendChild(text);
+              //document.getElementById("taskList").appendChild(li);
+              //document.getElementById("taskList").innerHTML= `
+              //<li>${text}</li>
+              //`;
+              //document.getElementById("taskList").`<li>${list}</li>`;
+              //list = document.createElement('li');
+              //document.getElementByClass('box').append(list);
+            }
+
+            //$("#taskList").html(html);
+
+
+       }
+       const readWord = async () => {
+            const data = await window.contract.methods.getFlower().call();
+            document.getElementById("dataArea").innerHTML = `Word is: ${data}`;
         }
 
-        const readContract = async () => {
-              const data = await window.contract.methods.GetAllStrings().call();
-              document.getElementById("dataArea").innerHTML = data;
-          }
+        const add = async () => {
+            const myEntry = document.getElementById("inputArea").value;
+            await window.contract.methods.create(myEntry).send({ from: account });
+            var taskCount = await window.contract.methods.taskCount().call();
+            console.log(taskCount);
+            //for (var i = 0; i <= taskCount; i++){
+             var li = document.createElement("li");
+              let text = document.createTextNode(await window.contract.methods.get(taskCount).call());
+              var li = document.createElement("li");
+              li.appendChild(text);
+              document.getElementById("taskListloaded").appendChild(li);
+              //document.getElementById("taskListloaded").classList.add('d-none');
+              //document.getElementById("taskListadded").classlist.remove('d-none');
+          //  }
+            }
 
-      function showPoll() {
-
-
-      }
-
-      function hidePoll() {
-
-        document.getElementById("create-poll-button").classList.remove('d-none');
-        document.getElementById("poll_div").classList.add('d-none');
-      }
-    </script>
-    <!--<form id="poll-form">
-      <input type="text" id="poll-question">
-      <div id="options-container"></div>
-      <button id="add-option-button">Add Option</button>
-      <button id="done-button">Done</button>
-    </form>-->
-    </body>
+</script>
+  </body>
 </html>
