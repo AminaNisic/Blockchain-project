@@ -50,155 +50,155 @@
 
         }
         const connectContract = async () => {
-           const ABI = [
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_text",
-				"type": "string"
-			}
-		],
-		"name": "create",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_index",
-				"type": "uint256"
-			}
-		],
-		"name": "toggleCompleted",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_index",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "_text",
-				"type": "string"
-			}
-		],
-		"name": "updateText",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_index",
-				"type": "uint256"
-			}
-		],
-		"name": "get",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "text",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "geTaskCount",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "taskCount",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "todos",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "text",
-				"type": "string"
-			},
-			{
-				"internalType": "bool",
-				"name": "completed",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "userTasks",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "text",
-				"type": "string"
-			},
-			{
-				"internalType": "bool",
-				"name": "completed",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	}
-]
+           const ABI = const ABI = [
+           {
+           "inputs": [
+           {
+           "internalType": "string",
+           "name": "_text",
+           "type": "string"
+           }
+           ],
+           "name": "create",
+           "outputs": [],
+           "stateMutability": "nonpayable",
+           "type": "function"
+           },
+           {
+           "inputs": [
+           {
+           "internalType": "uint256",
+           "name": "_index",
+           "type": "uint256"
+           }
+           ],
+           "name": "toggleCompleted",
+           "outputs": [],
+           "stateMutability": "nonpayable",
+           "type": "function"
+           },
+           {
+           "inputs": [],
+           "stateMutability": "nonpayable",
+           "type": "constructor"
+           },
+           {
+           "inputs": [
+           {
+           "internalType": "uint256",
+           "name": "_index",
+           "type": "uint256"
+           },
+           {
+           "internalType": "string",
+           "name": "_text",
+           "type": "string"
+           }
+           ],
+           "name": "updateText",
+           "outputs": [],
+           "stateMutability": "nonpayable",
+           "type": "function"
+           },
+           {
+           "inputs": [
+           {
+           "internalType": "uint256",
+           "name": "_index",
+           "type": "uint256"
+           }
+           ],
+           "name": "get",
+           "outputs": [
+           {
+           "internalType": "string",
+           "name": "text",
+           "type": "string"
+           }
+           ],
+           "stateMutability": "view",
+           "type": "function"
+           },
+           {
+           "inputs": [],
+           "name": "geTaskCount",
+           "outputs": [
+           {
+           "internalType": "uint256",
+           "name": "",
+           "type": "uint256"
+           }
+           ],
+           "stateMutability": "view",
+           "type": "function"
+           },
+           {
+           "inputs": [],
+           "name": "taskCount",
+           "outputs": [
+           {
+           "internalType": "uint256",
+           "name": "",
+           "type": "uint256"
+           }
+           ],
+           "stateMutability": "view",
+           "type": "function"
+           },
+           {
+           "inputs": [
+           {
+           "internalType": "uint256",
+           "name": "",
+           "type": "uint256"
+           }
+           ],
+           "name": "todos",
+           "outputs": [
+           {
+           "internalType": "string",
+           "name": "text",
+           "type": "string"
+           },
+           {
+           "internalType": "bool",
+           "name": "completed",
+           "type": "bool"
+           }
+           ],
+           "stateMutability": "view",
+           "type": "function"
+           },
+           {
+           "inputs": [
+           {
+           "internalType": "address",
+           "name": "",
+           "type": "address"
+           },
+           {
+           "internalType": "uint256",
+           "name": "",
+           "type": "uint256"
+           }
+           ],
+           "name": "userTasks",
+           "outputs": [
+           {
+           "internalType": "string",
+           "name": "text",
+           "type": "string"
+           },
+           {
+           "internalType": "bool",
+           "name": "completed",
+           "type": "bool"
+           }
+           ],
+           "stateMutability": "view",
+           "type": "function"
+           }
+         ];
            const Address = "0x2413406b7B70Ca9A3C2333DC12De9eE6E0F63f5b";
            window.web3 = await new Web3(window.ethereum);
            window.contract = await new window.web3.eth.Contract(ABI, Address);
@@ -257,6 +257,8 @@
               //document.getElementById("taskListadded").classlist.remove('d-none');
           //  }
             }
+
+
 
 </script>
   </body>

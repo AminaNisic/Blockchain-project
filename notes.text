@@ -1,36 +1,154 @@
-pragma solidity ^0.8.0;
+old Address
+const Address = "0x2413406b7B70Ca9A3C2333DC12De9eE6E0F63f5b";
 
-import "https://github.com/OpenZeppelin/openzeppelin-solidity/contracts/cryptography/ECDSA.sol";
 
-contract Poll {
-    uint256 public totalVotes;
-    string public question;
-    string[] public answers;
-
-    mapping (bytes32 => uint256) public encryptedVotes;
-    mapping (address => uint256) public voters;
-
-    constructor(string memory _question, string[] memory _answers) public {
-        question = _question;
-        answers = _answers;
-        totalVotes = 0;
-    }
-
-    function vote(uint256 _answerIndex) public {
-        require(_answerIndex < answers.length, "Answer index out of range");
-        require(voters[msg.sender] == 0, "You have already voted");
-        voters[msg.sender] = _answerIndex + 1;
-        totalVotes++;
-        bytes32 encryptedVote = ECDSA.hash(abi.encodePacked(_answerIndex, msg.sender));
-        encryptedVotes[encryptedVote]++;
-    }
-
-    function decryptVotes() public view returns (uint256[]) {
-        uint256[] memory decryptedVotes = new uint256[](answers.length);
-        for (bytes32 encryptedVote in encryptedVotes) {
-            uint256 decryptedVote = abi.decode(encryptedVote, (uint256, address));
-            decryptedVotes[decryptedVote] += encryptedVotes[encryptedVote];
-        }
-        return decryptedVotes;
-    }
+old ABI
+const ABI = [
+{
+"inputs": [
+{
+"internalType": "string",
+"name": "_text",
+"type": "string"
 }
+],
+"name": "create",
+"outputs": [],
+"stateMutability": "nonpayable",
+"type": "function"
+},
+{
+"inputs": [
+{
+"internalType": "uint256",
+"name": "_index",
+"type": "uint256"
+}
+],
+"name": "toggleCompleted",
+"outputs": [],
+"stateMutability": "nonpayable",
+"type": "function"
+},
+{
+"inputs": [],
+"stateMutability": "nonpayable",
+"type": "constructor"
+},
+{
+"inputs": [
+{
+"internalType": "uint256",
+"name": "_index",
+"type": "uint256"
+},
+{
+"internalType": "string",
+"name": "_text",
+"type": "string"
+}
+],
+"name": "updateText",
+"outputs": [],
+"stateMutability": "nonpayable",
+"type": "function"
+},
+{
+"inputs": [
+{
+"internalType": "uint256",
+"name": "_index",
+"type": "uint256"
+}
+],
+"name": "get",
+"outputs": [
+{
+"internalType": "string",
+"name": "text",
+"type": "string"
+}
+],
+"stateMutability": "view",
+"type": "function"
+},
+{
+"inputs": [],
+"name": "geTaskCount",
+"outputs": [
+{
+"internalType": "uint256",
+"name": "",
+"type": "uint256"
+}
+],
+"stateMutability": "view",
+"type": "function"
+},
+{
+"inputs": [],
+"name": "taskCount",
+"outputs": [
+{
+"internalType": "uint256",
+"name": "",
+"type": "uint256"
+}
+],
+"stateMutability": "view",
+"type": "function"
+},
+{
+"inputs": [
+{
+"internalType": "uint256",
+"name": "",
+"type": "uint256"
+}
+],
+"name": "todos",
+"outputs": [
+{
+"internalType": "string",
+"name": "text",
+"type": "string"
+},
+{
+"internalType": "bool",
+"name": "completed",
+"type": "bool"
+}
+],
+"stateMutability": "view",
+"type": "function"
+},
+{
+"inputs": [
+{
+"internalType": "address",
+"name": "",
+"type": "address"
+},
+{
+"internalType": "uint256",
+"name": "",
+"type": "uint256"
+}
+],
+"name": "userTasks",
+"outputs": [
+{
+"internalType": "string",
+"name": "text",
+"type": "string"
+},
+{
+"internalType": "bool",
+"name": "completed",
+"type": "bool"
+}
+],
+"stateMutability": "view",
+"type": "function"
+}
+]
