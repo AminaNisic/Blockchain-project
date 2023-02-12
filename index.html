@@ -21,7 +21,7 @@
       <p id="accountArea">Connection Status: NOT CONNECTED to Metamask </p>
 
       <button onclick="connectContract()"> Create a to do list!</button> <br>
-      <p id="contractArea">Connection Status: NOT CONNECTED to Smart Contract</p>
+      <p id="contractArea">Connection Status</p>
 
 
 
@@ -50,156 +50,138 @@
 
         }
         const connectContract = async () => {
-           const ABI = const ABI = [
-           {
-           "inputs": [
-           {
-           "internalType": "string",
-           "name": "_text",
-           "type": "string"
-           }
-           ],
-           "name": "create",
-           "outputs": [],
-           "stateMutability": "nonpayable",
-           "type": "function"
-           },
-           {
-           "inputs": [
-           {
-           "internalType": "uint256",
-           "name": "_index",
-           "type": "uint256"
-           }
-           ],
-           "name": "toggleCompleted",
-           "outputs": [],
-           "stateMutability": "nonpayable",
-           "type": "function"
-           },
-           {
-           "inputs": [],
-           "stateMutability": "nonpayable",
-           "type": "constructor"
-           },
-           {
-           "inputs": [
-           {
-           "internalType": "uint256",
-           "name": "_index",
-           "type": "uint256"
-           },
-           {
-           "internalType": "string",
-           "name": "_text",
-           "type": "string"
-           }
-           ],
-           "name": "updateText",
-           "outputs": [],
-           "stateMutability": "nonpayable",
-           "type": "function"
-           },
-           {
-           "inputs": [
-           {
-           "internalType": "uint256",
-           "name": "_index",
-           "type": "uint256"
-           }
-           ],
-           "name": "get",
-           "outputs": [
-           {
-           "internalType": "string",
-           "name": "text",
-           "type": "string"
-           }
-           ],
-           "stateMutability": "view",
-           "type": "function"
-           },
-           {
-           "inputs": [],
-           "name": "geTaskCount",
-           "outputs": [
-           {
-           "internalType": "uint256",
-           "name": "",
-           "type": "uint256"
-           }
-           ],
-           "stateMutability": "view",
-           "type": "function"
-           },
-           {
-           "inputs": [],
-           "name": "taskCount",
-           "outputs": [
-           {
-           "internalType": "uint256",
-           "name": "",
-           "type": "uint256"
-           }
-           ],
-           "stateMutability": "view",
-           "type": "function"
-           },
-           {
-           "inputs": [
-           {
-           "internalType": "uint256",
-           "name": "",
-           "type": "uint256"
-           }
-           ],
-           "name": "todos",
-           "outputs": [
-           {
-           "internalType": "string",
-           "name": "text",
-           "type": "string"
-           },
-           {
-           "internalType": "bool",
-           "name": "completed",
-           "type": "bool"
-           }
-           ],
-           "stateMutability": "view",
-           "type": "function"
-           },
-           {
-           "inputs": [
-           {
-           "internalType": "address",
-           "name": "",
-           "type": "address"
-           },
-           {
-           "internalType": "uint256",
-           "name": "",
-           "type": "uint256"
-           }
-           ],
-           "name": "userTasks",
-           "outputs": [
-           {
-           "internalType": "string",
-           "name": "text",
-           "type": "string"
-           },
-           {
-           "internalType": "bool",
-           "name": "completed",
-           "type": "bool"
-           }
-           ],
-           "stateMutability": "view",
-           "type": "function"
-           }
-         ];
-           const Address = "0x2413406b7B70Ca9A3C2333DC12De9eE6E0F63f5b";
+           const ABI = [
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_text",
+				"type": "string"
+			}
+		],
+		"name": "create",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_taskIndex",
+				"type": "uint256"
+			}
+		],
+		"name": "toggleCompleted",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_index",
+				"type": "uint256"
+			}
+		],
+		"name": "get",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "text",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "geTaskCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "taskCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "todos",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "text",
+				"type": "string"
+			},
+			{
+				"internalType": "bool",
+				"name": "completed",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "userTasks",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "text",
+				"type": "string"
+			},
+			{
+				"internalType": "bool",
+				"name": "completed",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+];
+           const Address = "0x2bcdF8b81231D1259409924665dEf077D3A9e2bE";
            window.web3 = await new Web3(window.ethereum);
            window.contract = await new window.web3.eth.Contract(ABI, Address);
            document.getElementById("contractArea").innerHTML = "Connection Status: Success";
@@ -216,10 +198,31 @@
             for (var i = 0; i <= taskCount; i++){
               //var li = document.createElement("li");
               let text = document.createTextNode(await window.contract.methods.get(i).call());
-              console.log(taskCount);
+              //console.log(taskCount);
               var li = document.createElement("li");
               li.appendChild(text);
+              const btn = document.createElement("button");
+              btn.id = "completebtn"
+              //document.getElementById("completebtn").onclick = function(){
+                //alert("works");
+
+              btn.onclick = function(){
+                markCompleted();
+              };
+
+              //working codee btn.setAttribute("onclick","await window.contract.methods.toggleCompleted("+i+").call()");
+              //window.contract.methods.get("+i+").call();
+              //document.getElementById("completebtn").onclick = function() {
+                //await window.contract.methods.toggleCompleted(i).call();
+              //};
+              btn.innerHTML = " Done ";
+              li.appendChild(btn);
               document.getElementById("taskListloaded").appendChild(li);
+              //console.log(await window.contract.methods.tasks().call());
+
+
+
+
               //document.getElementById("taskListloaded").classList.remove('d-none');
               //let text =
               //html+=`<li>`+await window.contract.methods.get(i).call());+`</li>`;
@@ -231,6 +234,10 @@
               //document.getElementById("taskList").`<li>${list}</li>`;
               //list = document.createElement('li');
               //document.getElementByClass('box').append(list);
+             const markCompleted = async () => {
+              await window.contract.methods.toggleCompleted(i).send({ from: account });
+                //console.log(await window.contract.methods.tasks().call());
+              }
             }
 
             //$("#taskList").html(html);
@@ -245,20 +252,27 @@
         const add = async () => {
             const myEntry = document.getElementById("inputArea").value;
             await window.contract.methods.create(myEntry).send({ from: account });
-            var taskCount = await window.contract.methods.taskCount().call();
+
+            var taskCount = await window.contract.methods.geTaskCount().call();
+            let text = document.createTextNode(await window.contract.methods.get(taskCount-1).call());
             console.log(taskCount);
+            console.log(text);
+
             //for (var i = 0; i <= taskCount; i++){
-             var li = document.createElement("li");
-              let text = document.createTextNode(await window.contract.methods.get(taskCount).call());
-              var li = document.createElement("li");
-              li.appendChild(text);
-              document.getElementById("taskListloaded").appendChild(li);
-              //document.getElementById("taskListloaded").classList.add('d-none');
-              //document.getElementById("taskListadded").classlist.remove('d-none');
-          //  }
+            var li = document.createElement("li");
+            li.appendChild(text);
+            const btn = document.createElement("button");
+            btn.id = "completebtn"
+            btn.onclick = function(){
+              markCompleted();
+            };
+            btn.innerHTML = " Done ";
+            li.appendChild(btn);
+            document.getElementById("taskListloaded").appendChild(li);
+            //  document.getElementById("taskListloaded").classList.add('d-none');
+            //  document.getElementById("taskListadded").classlist.remove('d-none');
+           //}
             }
-
-
 
 </script>
   </body>
