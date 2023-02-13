@@ -186,7 +186,7 @@
            window.contract = await new window.web3.eth.Contract(ABI, Address);
            document.getElementById("contractArea").innerHTML = "Connection Status: Success";
            document.getElementById("tasks").classList.remove('d-none');
-           var taskCount = await window.contract.methods.taskCount().call();
+           var taskCount = await window.contract.methods.geTaskCount().call();
            //console.log(taskCount);
 
 
