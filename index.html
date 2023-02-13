@@ -3,24 +3,43 @@
   <head>
     <meta charset="UTF-8">
     <title>To Do List</title>
+    <link rel="stylesheet" href="styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
     <style>
 
+      body{
+        background-color: #971286;
+        /*justify-content: center;
+        align-items: center;
+        display: flex;*/
+        padding: 50px;
+        text-align: center;
+        color:#FAD9F6;
+      }
       .completed{
         color:gray;
       }
+      #taskListloaded{
+         list-style-type: none;
+      }
+      #button{
+        margin: 30px;
+        padding: 10px;
+        border-radius: 12px;
+        background-color:#e8b7cc;
 
+      }
     </style>
   </head>
   <body>
       <h1>fUNNY lIst</h1>
-      <p>The website</p>
-      <button onclick="connectMetamask()">Connect to Metamask</button> <br>
+      <p> But on blockchain and you can only add tasks and get anxiety </p>
+      <button onclick="connectMetamask()" id="button">Connect to Metamask</button> <br>
       <p id="accountArea">Connection Status: NOT CONNECTED to Metamask </p>
 
-      <button onclick="connectContract()"> Create a to do list!</button> <br>
+      <button onclick="connectContract()" id="button"> Create a to do list!</button> <br>
       <p id="contractArea">Connection Status</p>
 
 
@@ -186,7 +205,7 @@
            window.contract = await new window.web3.eth.Contract(ABI, Address);
            document.getElementById("contractArea").innerHTML = "Connection Status: Success";
            document.getElementById("tasks").classList.remove('d-none');
-           var taskCount = await window.contract.methods.geTaskCount().call();
+           var taskCount = await window.contract.methods.taskCount().call();
            //console.log(taskCount);
 
 
@@ -206,8 +225,13 @@
               //document.getElementById("completebtn").onclick = function(){
                 //alert("works");
 
-              btn.onclick = function(){
+              /*btn.onclick = function(){
                 markCompleted();
+                alert("works");
+              };*/
+              btn.onclick = async function(){
+                await window.contract.methods.toggleCompleted(i-1).send({ from: account });
+                btn.classList="completed";
               };
 
               //working codee btn.setAttribute("onclick","await window.contract.methods.toggleCompleted("+i+").call()");
@@ -234,10 +258,11 @@
               //document.getElementById("taskList").`<li>${list}</li>`;
               //list = document.createElement('li');
               //document.getElementByClass('box').append(list);
-             const markCompleted = async () => {
+             /*const markCompleted = async () => {
               await window.contract.methods.toggleCompleted(i).send({ from: account });
+              btn.classList="completed";
                 //console.log(await window.contract.methods.tasks().call());
-              }
+              }*/
             }
 
             //$("#taskList").html(html);
