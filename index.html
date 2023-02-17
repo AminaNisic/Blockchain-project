@@ -19,34 +19,52 @@
         color:#FAD9F6;
       }
       .completed{
-        color:gray;
+        color:#40135c;
+        text-decoration: line-through;
       }
       #taskListloaded{
          list-style-type: none;
       }
-      #button{
+      #buttonaccount, #buttonToDoList{
         margin: 30px;
         padding: 10px;
         border-radius: 12px;
         background-color:#e8b7cc;
 
       }
+      #btnadd,#completebtn{
+        border-radius: 12px;
+        background-color:#e8b7cc;
+      }
+      #taskListloaded{
+        padding:10px;
+        margin: 10px
+      }
+      #box{
+        display: block;
+
+      }
+      #listitems,#contractArea{
+        padding:10px;
+        margin: 10px;
+      }
     </style>
   </head>
   <body>
       <h1>fUNNY lIst</h1>
       <p> But on blockchain and you can only add tasks and get anxiety </p>
-      <button onclick="connectMetamask()" id="button">Connect to Metamask</button> <br>
+      <button onclick="connectMetamask()" id="buttonaccount">Connect to Metamask</button> <br>
       <p id="accountArea">Connection Status: NOT CONNECTED to Metamask </p>
 
-      <button onclick="connectContract()" id="button"> Create a to do list!</button> <br>
-      <p id="contractArea">Connection Status</p>
+      <button onclick="connectContract()" id="buttonToDoList"> Open to do list!</button> <br>
+
 
 
 
     <div id="tasks" class="d-none">
       <input type="text" id="inputArea">
-      <button onclick="add()">Add</button> <br>
+      <button id="btnadd"onclick="add()">Add</button> <br>
+      <p id="contractArea"></p>
       <div id="box">
         <ul id="taskListloaded">
         </ul>
@@ -64,7 +82,8 @@
             if(window.ethereum !== "undefined"){
                 const accounts = await ethereum.request({method: "eth_requestAccounts"});
                 account = accounts[0];
-                document.getElementById("accountArea").innerHTML = `Account is: ${account}`;
+                document.getElementById("accountArea").innerHTML = `Connected to: ${account}`;
+                document.getElementById("buttonaccount").classList.add("d-none");
             }
 
         }
@@ -200,11 +219,12 @@
 		"type": "function"
 	}
 ];
-           const Address = "0x2bcdF8b81231D1259409924665dEf077D3A9e2bE";
+           const Address = "0x2F6616D373095b035a49685f79Ec212D550e0C66";
            window.web3 = await new Web3(window.ethereum);
            window.contract = await new window.web3.eth.Contract(ABI, Address);
-           document.getElementById("contractArea").innerHTML = "Connection Status: Success";
            document.getElementById("tasks").classList.remove('d-none');
+           document.getElementById("buttonToDoList").classList.add("d-none");
+          document.getElementById("contractArea").innerHTML = "To Do:";
            var taskCount = await window.contract.methods.taskCount().call();
            //console.log(taskCount);
 
@@ -216,9 +236,11 @@
             //var html="";
             for (var i = 0; i <= taskCount; i++){
               //var li = document.createElement("li");
-              let text = document.createTextNode(await window.contract.methods.get(i).call());
+              var task = await window.contract.methods.userTasks( account ,i).call();
+              let text = document.createTextNode(task[0]);
               //console.log(taskCount);
               var li = document.createElement("li");
+              li.id="listitems";
               li.appendChild(text);
               const btn = document.createElement("button");
               btn.id = "completebtn"
@@ -231,7 +253,8 @@
               };*/
               btn.onclick = async function(){
                 await window.contract.methods.toggleCompleted(i-1).send({ from: account });
-                btn.classList="completed";
+                btn.classList="d-none";
+                li.classList="completed";
               };
 
               //working codee btn.setAttribute("onclick","await window.contract.methods.toggleCompleted("+i+").call()");
@@ -243,6 +266,11 @@
               li.appendChild(btn);
               document.getElementById("taskListloaded").appendChild(li);
               //console.log(await window.contract.methods.tasks().call());
+              var completed = task[1];
+              if (completed){
+                btn.classList="d-none";
+                li.classList="completed";
+              }
 
 
 
@@ -278,9 +306,9 @@
             const myEntry = document.getElementById("inputArea").value;
             await window.contract.methods.create(myEntry).send({ from: account });
 
-            var taskCount = await window.contract.methods.geTaskCount().call();
-            let text = document.createTextNode(await window.contract.methods.get(taskCount-1).call());
-            console.log(taskCount);
+            var taskcount = await window.contract.methods.geTaskCount().call();
+            let text = document.createTextNode(await window.contract.methods.get(taskcount-1).call());
+            console.log(taskcount);
             console.log(text);
 
             //for (var i = 0; i <= taskCount; i++){
@@ -288,9 +316,11 @@
             li.appendChild(text);
             const btn = document.createElement("button");
             btn.id = "completebtn"
-            btn.onclick = function(){
-              markCompleted();
-            };
+              btn.onclick = async function(){
+                await window.contract.methods.toggleCompleted(taskcount-1).send({ from: account });
+                btn.classList="d-none";
+                li.classList="completed";
+              };
             btn.innerHTML = " Done ";
             li.appendChild(btn);
             document.getElementById("taskListloaded").appendChild(li);
