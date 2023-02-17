@@ -1,0 +1,43 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.1;
+
+contract Todos {
+
+    uint public taskCount=0;
+
+    struct Todo {
+        string text;
+        bool completed;
+    }
+
+    // An array of 'Todo' structs
+    //mapping(address => Task[]) public userTasks;
+    //Task u Todo
+    mapping(address => Todo[]) public userTasks;
+    Todo[] public todos;
+
+     constructor() public {
+        create("Dati Minki 100% iz projekta");
+  }
+
+    function create(string memory _text) public {
+        taskCount++;
+        userTasks[msg.sender].push(Todo(_text, false));
+    }
+
+    function get(uint _index) public view returns (string memory text) {
+        return userTasks[msg.sender][_index].text;
+    }
+
+    // update completed
+    function toggleCompleted(uint _taskIndex) public {
+        userTasks[msg.sender][_taskIndex].completed =
+          !userTasks[msg.sender][_taskIndex].completed;
+    }
+
+
+    function geTaskCount() public view returns (uint) {
+        return userTasks[msg.sender].length;
+    }
+
+}
